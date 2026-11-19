@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { describeNoteDraft } from "../index";
-
-const MAX = 2000;
+import { MAX_NOTE_LENGTH as MAX } from "~/lib/notes";
 
 describe("describeNoteDraft", () => {
   it("cannot save an empty box when there is no note yet", () => {
@@ -25,8 +24,19 @@ describe("describeNoteDraft", () => {
   it("treats whitespace-only text as empty", () => {
     const draft = describeNoteDraft("   \n ", null);
     expect(draft.empty).toBe(true);
-    expect(draft.unsaved).toBe(true);
     expect(draft.canSave).toBe(false);
+  });
+
+  it("has nothing to save when the box differs only by whitespace the server trims", () => {
+    const draft = describeNoteDraft("saved text\n", "saved text");
+    expect(draft.unsaved).toBe(false);
+    expect(draft.canSave).toBe(false);
+  });
+
+  it("counts and limits the text as the server will store it", () => {
+    const draft = describeNoteDraft(`  ${"a".repeat(MAX)}  `, null);
+    expect(draft.length).toBe(MAX);
+    expect(draft.tooLong).toBe(false);
   });
 
   it("has nothing to save when the box matches the saved note", () => {

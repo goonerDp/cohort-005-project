@@ -9,7 +9,6 @@ import { cn, formatRelativeTime } from "~/lib/utils";
 
 type SavedNote = { body: string; updatedAt: string } | null;
 
-// Styled to match the Questions & Discussion card further down the page.
 export function LessonNote({ note }: { note: SavedNote }) {
   const fetcher = useFetcher<{ ok: boolean; error?: string }>();
   const [body, setBody] = useState(note?.body ?? "");
