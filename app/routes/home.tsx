@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { CourseImage } from "~/components/course-image";
 import { DevUI } from "~/components/dev-ui";
+import { HomeHeroHeading } from "~/components/home-hero-heading";
 import { getCurrentUserId, getDevCountry } from "~/lib/session";
 import { getCountryTierInfo, COUNTRIES } from "~/lib/ppp";
 import { eq, like, and, or, sql } from "drizzle-orm";
@@ -235,11 +236,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       </header>
 
       <section className="mx-auto max-w-6xl px-6 py-24 text-center">
-        <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">
-          Learn to code,
-          <br />
-          <span className="text-muted-foreground">at your own pace</span>
-        </h1>
+        <HomeHeroHeading />
         <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
           Structured courses built by experienced instructors. Track your
           progress, take quizzes, and build real-world skills.
